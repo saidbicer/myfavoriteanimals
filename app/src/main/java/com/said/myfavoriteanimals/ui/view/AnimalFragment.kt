@@ -18,7 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AnimalFragment @Inject constructor(private val preferencesUtils: PreferencesUtils): Fragment(R.layout.fragment_animal) {
+class AnimalFragment @Inject constructor(private val preferencesUtils: PreferencesUtils) :
+    Fragment(R.layout.fragment_animal) {
 
     private var fragmentBinding: FragmentAnimalBinding? = null
     private val viewModel: AnimalViewModel by viewModels()
@@ -65,10 +66,16 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
                         bidding.btnGetRandomImage.isEnabled = true
                         bidding.btnSaveImage.isEnabled = true
 
-                        resource.data?.imgUrl?.let { imgUrl ->
-                            bidding.animal = Animal(null, imgUrl)
-                            preferencesUtils.setLastTakenImgUrl(imgUrl)
+                        if (resource.data?.status.equals("success")) {
+                            resource.data?.imgUrl?.let { imgUrl ->
+                                bidding.animal = Animal(null, imgUrl)
+                                preferencesUtils.setLastTakenImgUrl(imgUrl)
+                            }
+                        } else {
+                            bidding.animal = Animal(null, "")
+                            preferencesUtils.clearLastImgUrl()
                         }
+
                     }
                 }
 
