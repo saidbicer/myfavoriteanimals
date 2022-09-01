@@ -8,6 +8,7 @@ import com.said.myfavoriteanimals.data.db.MyDatabase
 import com.said.myfavoriteanimals.data.db.dao.AnimalDao
 import com.said.myfavoriteanimals.data.repository.AnimalRepository
 import com.said.myfavoriteanimals.data.repository.AnimalRepositoryInterface
+import com.said.myfavoriteanimals.ui.adapter.FavoriteAnimalsAdapter
 import com.said.myfavoriteanimals.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -56,4 +57,8 @@ object AppModule {
             Context.MODE_PRIVATE
         )
     }
+
+    @Singleton
+    @Provides
+    fun injectAdapter() = FavoriteAnimalsAdapter(arrayListOf())
 }

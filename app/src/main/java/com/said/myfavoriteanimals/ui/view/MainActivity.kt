@@ -16,10 +16,14 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var preferencesUtils: PreferencesUtils
 
+    @Inject
+    lateinit var fragmentFactory: AnimalFragmentFactory
+
     private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager.fragmentFactory = fragmentFactory
         setContentView(R.layout.activity_main)
 
         preferencesUtils.clearLastImgUrl()
