@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnimalViewModel @Inject constructor(private val repository: AnimalRepositoryInterface) : ViewModel() {
+class AnimalViewModel @Inject constructor(private val repository: AnimalRepositoryInterface) :
+    ViewModel() {
 
     private var _image = MutableLiveData<Resource<AnimalModel>>()
     val image: LiveData<Resource<AnimalModel>>
@@ -27,8 +28,10 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
 
         viewModelScope.launch {
             var resource = repository.getImageFromAPI()
-            if (!resource.data?.status.equals("success")){
-                resource = Resource.error("No data", null)
+            resource.data?.let { data ->
+                if (!data.status.equals("success")) {
+                    resource = Resource.error("Response status : ${data.status}", null)
+                }
             }
 
             _image.value = resource
@@ -46,7 +49,7 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
         _isSaved.value = animal != null
     }
 
-    fun saveDataToSqlite(){
+    fun saveDataToSqlite() {
         _image.value?.data?.imgUrl?.let { imgUrl ->
             val animal = Animal(null, imgUrl)
             viewModelScope.launch {
