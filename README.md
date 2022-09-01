@@ -21,3 +21,5 @@ Proje bir json api üzerinden sorgulama yapılması ve seçilen resimlerin favor
 * [RoomDatabase](https://developer.android.com/training/data-storage/room/sqlite-room-migration)
 * [Databinding](https://developer.android.com/topic/libraries/data-binding)
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+
+https://user-images.githubusercontent.com/3463241/187863873-7dde4036-3ce2-4000-966f-8ad293a94f18.mp4
