@@ -1,6 +1,7 @@
 package com.said.myfavoriteanimals.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.said.myfavoriteanimals.R
 import com.said.myfavoriteanimals.data.db.entity.Animal
 import com.said.myfavoriteanimals.databinding.FragmentAnimalBinding
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalViewModel
+import com.said.myfavoriteanimals.util.Constants
 import com.said.myfavoriteanimals.util.PreferencesUtils
 import com.said.myfavoriteanimals.util.Status
 import com.said.myfavoriteanimals.util.downloadFromUrl
@@ -30,7 +32,7 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
         initialSetups(view)
         subscribeObservers()
 
-        if (preferencesUtils.getLastTakenImgUrl().isNullOrEmpty()) {
+        if (preferencesUtils.getLastTakenImgUrl().isNullOrEmpty() && savedInstanceState == null) {
             viewModel.getDataFromAPI()
         }
     }
@@ -52,6 +54,32 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
                     val action = AnimalFragmentDirections.actionAnimalFragmentToAnimalListFragment()
                     findNavController().navigate(action)
                 }
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.image.value?.let {
+            if (it.status == Status.SUCCESS) {
+                outState.putString(Constants.IMG_URL, it.message)
+            }
+        }
+        fragmentBinding?.let { binding ->
+            outState.putBoolean(Constants.BTN_STATUS, binding.btnSaveImage.isEnabled)
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        savedInstanceState?.let { state ->
+            fragmentBinding?.let { binding ->
+                state.getString(Constants.IMG_URL)?.let { imgUrl ->
+                    binding.animal = Animal(null, imgUrl)
+                }
+
+                binding.btnSaveImage.isEnabled = state.getBoolean(Constants.BTN_STATUS)
             }
         }
     }
