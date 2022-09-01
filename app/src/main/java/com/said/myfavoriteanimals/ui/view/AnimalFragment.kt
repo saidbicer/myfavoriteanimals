@@ -37,7 +37,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
                 }
 
                 btnSaveImage.setOnClickListener {
-
+                    viewModel.saveDataToSqlite()
                 }
 
                 btnListImages.setOnClickListener {
