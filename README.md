@@ -1,0 +1,1 @@
+Bu projede "https://dog.ceo/api/breeds/image/random" apisi üzerinden resim çekilerek uygulamada gösterilecektir
