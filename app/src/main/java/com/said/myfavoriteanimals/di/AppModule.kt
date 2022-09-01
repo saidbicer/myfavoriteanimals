@@ -1,6 +1,8 @@
 package com.said.myfavoriteanimals.di
 
 import com.said.myfavoriteanimals.data.api.RetrofitAPI
+import com.said.myfavoriteanimals.data.repository.AnimalRepository
+import com.said.myfavoriteanimals.data.repository.AnimalRepositoryInterface
 import com.said.myfavoriteanimals.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -25,4 +27,8 @@ object AppModule {
             .create(RetrofitAPI::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun injectNormalRepo(api: RetrofitAPI) =
+        AnimalRepository(api) as AnimalRepositoryInterface
 }

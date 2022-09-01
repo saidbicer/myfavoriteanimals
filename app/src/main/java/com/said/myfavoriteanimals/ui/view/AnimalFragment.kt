@@ -28,7 +28,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
         fragmentBinding?.let { binding ->
             binding.apply {
                 btnGetRandomImage.setOnClickListener {
-
+                    viewModel.getDataFromAPI()
                 }
 
                 btnSaveImage.setOnClickListener {
