@@ -26,7 +26,11 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
         _image.value = Resource.loading(null)
 
         viewModelScope.launch {
-            val resource = repository.getImageFromAPI()
+            var resource = repository.getImageFromAPI()
+            if (!resource.data?.status.equals("success")){
+                resource = Resource.error("No data", null)
+            }
+
             _image.value = resource
 
             if (resource.status == Status.SUCCESS) {

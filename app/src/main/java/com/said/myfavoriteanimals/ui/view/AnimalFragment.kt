@@ -66,16 +66,10 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
                         bidding.btnGetRandomImage.isEnabled = true
                         bidding.btnSaveImage.isEnabled = true
 
-                        if (resource.data?.status.equals("success")) {
-                            resource.data?.imgUrl?.let { imgUrl ->
-                                bidding.animal = Animal(null, imgUrl)
-                                preferencesUtils.setLastTakenImgUrl(imgUrl)
-                            }
-                        } else {
-                            bidding.animal = Animal(null, "")
-                            preferencesUtils.clearLastImgUrl()
+                        resource.data?.imgUrl?.let { imgUrl ->
+                            bidding.animal = Animal(null, imgUrl)
+                            preferencesUtils.setLastTakenImgUrl(imgUrl)
                         }
-
                     }
                 }
 
@@ -85,6 +79,7 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
                         bidding.ivAnimal.setImageResource(R.drawable.ic_launcher_background)
                         bidding.btnGetRandomImage.isEnabled = true
                         bidding.progressBar.visibility = View.GONE
+                        preferencesUtils.clearLastImgUrl()
                     }
                     Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
                         .show()
