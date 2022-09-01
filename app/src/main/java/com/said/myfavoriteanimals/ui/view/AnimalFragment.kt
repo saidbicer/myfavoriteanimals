@@ -18,7 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AnimalFragment @Inject constructor(private val preferencesUtils: PreferencesUtils): Fragment(R.layout.fragment_animal) {
+class AnimalFragment @Inject constructor(private val preferencesUtils: PreferencesUtils) :
+    Fragment(R.layout.fragment_animal) {
 
     private var fragmentBinding: FragmentAnimalBinding? = null
     private val viewModel: AnimalViewModel by viewModels()
@@ -78,6 +79,7 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
                         bidding.ivAnimal.setImageResource(R.drawable.ic_launcher_background)
                         bidding.btnGetRandomImage.isEnabled = true
                         bidding.progressBar.visibility = View.GONE
+                        preferencesUtils.clearLastImgUrl()
                     }
                     Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
                         .show()

@@ -58,7 +58,6 @@ object AppModule {
         )
     }
 
-    @Singleton
     @Provides
     fun injectAdapter() = FavoriteAnimalsAdapter(arrayListOf())
 }
