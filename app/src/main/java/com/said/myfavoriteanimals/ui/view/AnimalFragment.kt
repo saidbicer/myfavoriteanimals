@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.said.myfavoriteanimals.R
+import com.said.myfavoriteanimals.data.db.entity.Animal
 import com.said.myfavoriteanimals.databinding.FragmentAnimalBinding
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalViewModel
 import com.said.myfavoriteanimals.util.Status
@@ -58,7 +59,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
                         bidding.btnSaveImage.isEnabled = true
 
                         resource.data?.imgUrl?.let { imgUrl ->
-                            bidding.ivAnimal.downloadFromUrl(imgUrl)
+                            bidding.animal = Animal(imgUrl)
                         }
                     }
                 }
