@@ -7,7 +7,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.said.myfavoriteanimals.R
 import com.said.myfavoriteanimals.util.PreferencesUtils
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -16,14 +20,12 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var preferencesUtils: PreferencesUtils
 
-    @Inject
-    lateinit var fragmentFactory: AnimalFragmentFactory
-
     private lateinit var navHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val factory = EntryPointAccessors.fromApplication(this, DynamicFactoryInterface::class.java)
+        supportFragmentManager.fragmentFactory = factory.getFactory()
         super.onCreate(savedInstanceState)
-        supportFragmentManager.fragmentFactory = fragmentFactory
         setContentView(R.layout.activity_main)
 
         preferencesUtils.clearLastImgUrl()
