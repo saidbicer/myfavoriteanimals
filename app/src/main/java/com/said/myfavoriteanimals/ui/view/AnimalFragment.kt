@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.said.myfavoriteanimals.R
@@ -23,7 +24,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
     lateinit var preferencesUtils: PreferencesUtils
 
     private var fragmentBinding: FragmentAnimalBinding? = null
-    private lateinit var viewModel: AnimalViewModel
+    private val viewModel: AnimalViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +39,6 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
 
     private fun initialSetups(view: View) {
         fragmentBinding = FragmentAnimalBinding.bind(view)
-        viewModel = ViewModelProvider(requireActivity())[AnimalViewModel::class.java]
 
         fragmentBinding?.let { binding ->
             binding.apply {

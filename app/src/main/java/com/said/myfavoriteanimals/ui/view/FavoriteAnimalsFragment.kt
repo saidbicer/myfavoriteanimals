@@ -3,6 +3,7 @@ package com.said.myfavoriteanimals.ui.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,12 +11,15 @@ import com.said.myfavoriteanimals.R
 import com.said.myfavoriteanimals.databinding.FragmentFavoriteAnimalsBinding
 import com.said.myfavoriteanimals.ui.adapter.FavoriteAnimalsAdapter
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalListViewModel
+import com.said.myfavoriteanimals.ui.viewmodel.AnimalViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteAnimalsFragment : Fragment(R.layout.fragment_favorite_animals) {
 
     private var fragmentBinding: FragmentFavoriteAnimalsBinding? = null
-    private lateinit var viewModel: AnimalListViewModel
     private var animalListAdapter: FavoriteAnimalsAdapter? = null
+    private val viewModel: AnimalListViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +31,6 @@ class FavoriteAnimalsFragment : Fragment(R.layout.fragment_favorite_animals) {
 
     private fun initialSetups(view: View) {
         fragmentBinding = FragmentFavoriteAnimalsBinding.bind(view)
-        viewModel = ViewModelProvider(requireActivity())[AnimalListViewModel::class.java]
 
         animalListAdapter = FavoriteAnimalsAdapter(arrayListOf())
 
