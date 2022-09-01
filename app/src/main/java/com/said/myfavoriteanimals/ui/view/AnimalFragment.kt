@@ -16,7 +16,6 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
         super.onViewCreated(view, savedInstanceState)
 
         initialSetups(view)
-
     }
 
     private fun initialSetups(view : View) {
