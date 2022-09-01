@@ -13,12 +13,12 @@ import com.said.myfavoriteanimals.ui.adapter.FavoriteAnimalsAdapter
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalListViewModel
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavoriteAnimalsFragment : Fragment(R.layout.fragment_favorite_animals) {
+class FavoriteAnimalsFragment @Inject constructor(private val animalListAdapter: FavoriteAnimalsAdapter) : Fragment(R.layout.fragment_favorite_animals) {
 
     private var fragmentBinding: FragmentFavoriteAnimalsBinding? = null
-    private var animalListAdapter: FavoriteAnimalsAdapter? = null
     private val viewModel: AnimalListViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,8 +31,6 @@ class FavoriteAnimalsFragment : Fragment(R.layout.fragment_favorite_animals) {
 
     private fun initialSetups(view: View) {
         fragmentBinding = FragmentFavoriteAnimalsBinding.bind(view)
-
-        animalListAdapter = FavoriteAnimalsAdapter(arrayListOf())
 
         fragmentBinding?.let {
             it.recyclerView.adapter = animalListAdapter

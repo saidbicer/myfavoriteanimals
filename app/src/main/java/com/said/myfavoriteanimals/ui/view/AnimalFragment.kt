@@ -18,10 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AnimalFragment : Fragment(R.layout.fragment_animal) {
-
-    @Inject
-    lateinit var preferencesUtils: PreferencesUtils
+class AnimalFragment @Inject constructor(private val preferencesUtils: PreferencesUtils): Fragment(R.layout.fragment_animal) {
 
     private var fragmentBinding: FragmentAnimalBinding? = null
     private val viewModel: AnimalViewModel by viewModels()
