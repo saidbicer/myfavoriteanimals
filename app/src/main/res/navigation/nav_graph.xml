@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/animalFragment"
         android:name="com.said.myfavoriteanimals.ui.view.AnimalFragment"
-        android:label="fragment_animal"
-        tools:layout="@layout/fragment_animal" >
+        android:label="@string/animalsearch"
+        tools:layout="@layout/fragment_animal">
         <action
             android:id="@+id/action_animalFragment_to_animalListFragment"
             app:destination="@id/animalListFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/animalListFragment"
         android:name="com.said.myfavoriteanimals.ui.view.AnimalListFragment"
-        android:label="fragment_animal_list"
-        tools:layout="@layout/fragment_animal_list" >
+        android:label="@string/myfavoriteanimals"
+        tools:layout="@layout/fragment_animal_list">
         <action
             android:id="@+id/action_animalListFragment_to_animalFragment"
             app:destination="@id/animalFragment" />

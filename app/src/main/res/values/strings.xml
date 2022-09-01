@@ -4,4 +4,7 @@
     <string name="get_random_image">Get Random Image</string>
     <string name="save_image">Save Image</string>
     <string name="listmyfavoriteanimals">List My Favorite Animals</string>
+    <string name="no_data">No data!</string>
+    <string name="animalsearch">Animal Search</string>
+    <string name="myfavoriteanimals">My Favorite Animals</string>
 </resources>
