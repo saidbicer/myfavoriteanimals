@@ -1,4 +1,4 @@
-package com.said.androidartbooktesting
+package com.said.myfavoriteanimals
 
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint

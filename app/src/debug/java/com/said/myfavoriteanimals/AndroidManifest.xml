@@ -5,7 +5,7 @@
 
     <application>
         <activity
-            android:name=".HiltTestActivity"
+            android:name="com.said.myfavoriteanimals.HiltTestActivity"
             android:exported="false" />
     </application>
 
