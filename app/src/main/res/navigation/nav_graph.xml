@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/animalListFragment"
-        android:name="com.said.myfavoriteanimals.ui.view.AnimalListFragment"
+        android:name="com.said.myfavoriteanimals.ui.view.FavoriteAnimalsFragment"
         android:label="@string/myfavoriteanimals"
-        tools:layout="@layout/fragment_animal_list">
+        tools:layout="@layout/fragment_favorite_animals">
         <action
             android:id="@+id/action_animalListFragment_to_animalFragment"
             app:destination="@id/animalFragment" />
