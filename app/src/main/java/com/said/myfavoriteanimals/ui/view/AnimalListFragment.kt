@@ -10,5 +10,5 @@ class AnimalListFragment : Fragment(R.layout.fragment_animal_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-    
+
 }
