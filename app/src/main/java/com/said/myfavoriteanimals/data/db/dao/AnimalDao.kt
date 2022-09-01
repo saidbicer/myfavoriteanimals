@@ -15,5 +15,5 @@ interface AnimalDao {
     suspend fun getAllAnimals(): List<Animal>
 
     @Query("SELECT * FROM animals WHERE imgUrl = :imgUrl")
-    suspend fun getAnimalFromUrl(imgUrl: String): Animal?
+    suspend fun getAnimalWithUrlFromSQLite(imgUrl: String): Animal?
 }

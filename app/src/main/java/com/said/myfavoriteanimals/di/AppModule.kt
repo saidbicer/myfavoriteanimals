@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.said.myfavoriteanimals.data.api.RetrofitAPI
 import com.said.myfavoriteanimals.data.db.MyDatabase
+import com.said.myfavoriteanimals.data.db.dao.AnimalDao
 import com.said.myfavoriteanimals.data.repository.AnimalRepository
 import com.said.myfavoriteanimals.data.repository.AnimalRepositoryInterface
 import com.said.myfavoriteanimals.util.Constants
@@ -29,6 +30,10 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun injectDao(database: MyDatabase) = database.animalDao()
+
+    @Singleton
+    @Provides
     fun injectRetrofitAPI(): RetrofitAPI {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -39,6 +44,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectNormalRepo(api: RetrofitAPI) =
-        AnimalRepository(api) as AnimalRepositoryInterface
+    fun injectNormalRepo(dao: AnimalDao, api: RetrofitAPI) =
+        AnimalRepository(dao, api) as AnimalRepositoryInterface
 }
