@@ -24,6 +24,8 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
 
         initialSetups(view)
         subscribeObservers()
+
+        viewModel.getDataFromAPI()
     }
 
     private fun initialSetups(view: View) {
@@ -83,6 +85,12 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
                         bidding.progressBar.visibility = View.VISIBLE
                     }
                 }
+            }
+        }
+
+        viewModel.isSaved.observe(viewLifecycleOwner) { isSaved ->
+            fragmentBinding?.let { root ->
+                root.btnSaveImage.isEnabled = !isSaved
             }
         }
     }
