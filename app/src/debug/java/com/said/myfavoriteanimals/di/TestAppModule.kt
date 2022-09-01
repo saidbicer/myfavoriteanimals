@@ -1,4 +1,4 @@
-package com.said.androidartbooktesting.di
+package com.said.myfavoriteanimals.di
 
 import android.content.Context
 import androidx.room.Room
