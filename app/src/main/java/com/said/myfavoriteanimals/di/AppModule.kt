@@ -1,6 +1,7 @@
 package com.said.myfavoriteanimals.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.said.myfavoriteanimals.data.api.RetrofitAPI
 import com.said.myfavoriteanimals.data.db.MyDatabase
@@ -46,4 +47,13 @@ object AppModule {
     @Provides
     fun injectNormalRepo(dao: AnimalDao, api: RetrofitAPI) =
         AnimalRepository(dao, api) as AnimalRepositoryInterface
+
+    @Singleton
+    @Provides
+    fun injectSharedPreference(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(
+            context.packageName + "_preferences",
+            Context.MODE_PRIVATE
+        )
+    }
 }

@@ -10,11 +10,17 @@ import com.said.myfavoriteanimals.R
 import com.said.myfavoriteanimals.data.db.entity.Animal
 import com.said.myfavoriteanimals.databinding.FragmentAnimalBinding
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalViewModel
+import com.said.myfavoriteanimals.util.PreferencesUtils
 import com.said.myfavoriteanimals.util.Status
 import com.said.myfavoriteanimals.util.downloadFromUrl
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class AnimalFragment : Fragment(R.layout.fragment_animal) {
+
+    @Inject
+    lateinit var preferencesUtils: PreferencesUtils
 
     private var fragmentBinding: FragmentAnimalBinding? = null
     private lateinit var viewModel: AnimalViewModel
@@ -25,7 +31,9 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
         initialSetups(view)
         subscribeObservers()
 
-        viewModel.getDataFromAPI()
+        if (preferencesUtils.getLastTakenImgUrl().isNullOrEmpty()) {
+            viewModel.getDataFromAPI()
+        }
     }
 
     private fun initialSetups(view: View) {
@@ -62,6 +70,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
 
                         resource.data?.imgUrl?.let { imgUrl ->
                             bidding.animal = Animal(null, imgUrl)
+                            preferencesUtils.setLastTakenImgUrl(imgUrl)
                         }
                     }
                 }
