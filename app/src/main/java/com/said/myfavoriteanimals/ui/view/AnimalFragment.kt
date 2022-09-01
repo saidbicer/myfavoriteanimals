@@ -26,7 +26,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
         subscribeObservers()
     }
 
-    private fun initialSetups(view : View) {
+    private fun initialSetups(view: View) {
         fragmentBinding = FragmentAnimalBinding.bind(view)
         viewModel = ViewModelProvider(requireActivity())[AnimalViewModel::class.java]
 
@@ -59,7 +59,7 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
                         bidding.btnSaveImage.isEnabled = true
 
                         resource.data?.imgUrl?.let { imgUrl ->
-                            bidding.animal = Animal(imgUrl)
+                            bidding.animal = Animal(null, imgUrl)
                         }
                     }
                 }
