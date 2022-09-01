@@ -1,8 +1,7 @@
 package com.said.myfavoriteanimals.ui.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.said.myfavoriteanimals.data.db.entity.Animal
 import com.said.myfavoriteanimals.data.model.AnimalModel
 import com.said.myfavoriteanimals.data.repository.AnimalRepositoryInterface
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnimalViewModel @Inject constructor(application: Application, private val repository: AnimalRepositoryInterface) : BaseViewModel(application) {
+class AnimalViewModel @Inject constructor(application: Application, private val repository: AnimalRepositoryInterface) : ViewModel() {
 
     private var _image = MutableLiveData<Resource<AnimalModel>>()
     val image: LiveData<Resource<AnimalModel>>
@@ -26,7 +25,7 @@ class AnimalViewModel @Inject constructor(application: Application, private val 
     fun getDataFromAPI() {
         _image.value = Resource.loading(null)
 
-        launch {
+        viewModelScope.launch {
             val resource = repository.getImageFromAPI()
             _image.value = resource
 
@@ -46,7 +45,7 @@ class AnimalViewModel @Inject constructor(application: Application, private val 
     fun saveDataToSqlite(){
         _image.value?.data?.imgUrl?.let { imgUrl ->
             val animal = Animal(null, imgUrl)
-            launch {
+            viewModelScope.launch {
                 repository.insertAnimalToSQLite(animal)
                 _isSaved.value = true
             }
