@@ -10,6 +10,7 @@ import com.said.myfavoriteanimals.R
 import com.said.myfavoriteanimals.databinding.FragmentAnimalBinding
 import com.said.myfavoriteanimals.ui.viewmodel.AnimalViewModel
 import com.said.myfavoriteanimals.util.Status
+import com.said.myfavoriteanimals.util.downloadFromUrl
 
 
 class AnimalFragment : Fragment(R.layout.fragment_animal) {
@@ -54,6 +55,11 @@ class AnimalFragment : Fragment(R.layout.fragment_animal) {
                         bidding.ivAnimal.visibility = View.VISIBLE
                         bidding.progressBar.visibility = View.GONE
                         bidding.btnGetRandomImage.isEnabled = true
+                        bidding.btnSaveImage.isEnabled = true
+
+                        resource.data?.imgUrl?.let { imgUrl ->
+                            bidding.ivAnimal.downloadFromUrl(imgUrl)
+                        }
                     }
                 }
 
