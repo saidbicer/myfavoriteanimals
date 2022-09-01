@@ -8,13 +8,11 @@ import com.said.myfavoriteanimals.util.Resource
 class FakeAnimalRepository : AnimalRepositoryInterface {
 
     private val animals = mutableListOf<Animal>()
-    private val animalsLiveData = MutableLiveData<List<Animal>>(animals)
     private lateinit var animalModel: AnimalModel
 
     override suspend fun insertAnimalToSQLite(animal: Animal) {
         if (getAnimalWithUrlFromSQLite(animal.imgUrl) == null) {
             animals.add(animal)
-            refreshData()
         }
     }
 
@@ -29,10 +27,6 @@ class FakeAnimalRepository : AnimalRepositoryInterface {
 
     override suspend fun getImageFromAPI(): Resource<AnimalModel> {
         return Resource.success(animalModel)
-    }
-
-    private fun refreshData() {
-        animalsLiveData.postValue(animals)
     }
 
     fun setAnimalModel(message: String, status: String) {

@@ -50,4 +50,17 @@ class AnimalViewModelTest {
         val value = viewModel.image.getOrAwaitValueTest()
         assertThat(value.status).isEqualTo(Status.ERROR)
     }
+
+    @Test
+    fun `Save butonuna basıldığında resim daha önce kaydedilmemişse kayıt yapılmalı ve isSaved true dönmeli`() {
+        fakeAnimalRepository.setAnimalModel(
+            "https://images.dog.ceo/breeds/samoyed/n02111889_6955.jpg",
+            "success"
+        )
+        viewModel.getDataFromAPI()
+        viewModel.saveDataToSqlite()
+        val value = viewModel.isSaved.getOrAwaitValueTest()
+        assertThat(value).isTrue()
+    }
+
 }
