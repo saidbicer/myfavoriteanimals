@@ -25,7 +25,7 @@ class AnimalFragmentTest {
 
     @Test
     fun testNavigationFrom() {
-        
+
     }
 
 }
