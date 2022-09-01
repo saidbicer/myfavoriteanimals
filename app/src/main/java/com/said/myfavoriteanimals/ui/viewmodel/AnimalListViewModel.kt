@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnimalListViewModel @Inject constructor(private val repository: AnimalRepositoryInterface, application: Application) : ViewModel() {
+class AnimalListViewModel @Inject constructor(private val repository: AnimalRepositoryInterface) : ViewModel() {
 
     private var _animalsLiveData = MutableLiveData<List<Animal>>()
     val animalsLiveData: LiveData<List<Animal>>

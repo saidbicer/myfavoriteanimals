@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnimalViewModel @Inject constructor(application: Application, private val repository: AnimalRepositoryInterface) : ViewModel() {
+class AnimalViewModel @Inject constructor(private val repository: AnimalRepositoryInterface) : ViewModel() {
 
     private var _image = MutableLiveData<Resource<AnimalModel>>()
     val image: LiveData<Resource<AnimalModel>>
