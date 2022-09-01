@@ -30,7 +30,7 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
             var resource = repository.getImageFromAPI()
             resource.data?.let { data ->
                 if (!data.status.equals("success")) {
-                    resource = Resource.error("Response status : ${data.status}", null)
+                    resource = Resource.error("Status : ${data.status}", null)
                 }
             }
 
