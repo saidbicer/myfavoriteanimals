@@ -24,5 +24,5 @@ object AppModule {
             .build()
             .create(RetrofitAPI::class.java)
     }
-    
+
 }
