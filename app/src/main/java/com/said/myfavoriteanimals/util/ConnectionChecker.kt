@@ -7,9 +7,12 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
-class ConnectionChecker {
+@Singleton
+class ConnectionChecker @Inject constructor(){
 
     companion object {
         private const val HOST_NAME = "8.8.8.8"

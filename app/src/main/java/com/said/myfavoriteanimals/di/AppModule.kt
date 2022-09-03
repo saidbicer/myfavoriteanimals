@@ -9,6 +9,7 @@ import com.said.myfavoriteanimals.data.db.dao.AnimalDao
 import com.said.myfavoriteanimals.data.repository.AnimalRepository
 import com.said.myfavoriteanimals.data.repository.AnimalRepositoryInterface
 import com.said.myfavoriteanimals.ui.adapter.FavoriteAnimalsAdapter
+import com.said.myfavoriteanimals.util.ConnectionChecker
 import com.said.myfavoriteanimals.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -46,8 +47,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectNormalRepo(dao: AnimalDao, api: RetrofitAPI) =
-        AnimalRepository(dao, api) as AnimalRepositoryInterface
+    fun injectNormalRepo(dao: AnimalDao, api: RetrofitAPI, connectionChecker: ConnectionChecker) =
+        AnimalRepository(dao, api, connectionChecker) as AnimalRepositoryInterface
 
     @Singleton
     @Provides
