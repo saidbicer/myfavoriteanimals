@@ -4,11 +4,15 @@ import com.said.myfavoriteanimals.data.api.RetrofitAPI
 import com.said.myfavoriteanimals.data.db.dao.AnimalDao
 import com.said.myfavoriteanimals.data.db.entity.Animal
 import com.said.myfavoriteanimals.data.model.AnimalModel
+import com.said.myfavoriteanimals.util.ConnectionChecker
 import com.said.myfavoriteanimals.util.Resource
 import java.lang.Exception
 import javax.inject.Inject
 
-class AnimalRepository @Inject constructor(private val animalDao: AnimalDao, private val retrofitAPI: RetrofitAPI) : AnimalRepositoryInterface {
+class AnimalRepository @Inject constructor(
+    private val animalDao: AnimalDao,
+    private val retrofitAPI: RetrofitAPI
+) : AnimalRepositoryInterface {
 
     override suspend fun insertAnimalToSQLite(animal: Animal) {
         animalDao.insertAnimal(animal)
@@ -23,6 +27,10 @@ class AnimalRepository @Inject constructor(private val animalDao: AnimalDao, pri
     }
 
     override suspend fun getImageFromAPI(): Resource<AnimalModel> {
+        if (!ConnectionChecker().check()) {
+            return Resource.error("No connection", null)
+        }
+
         return try {
             val response = retrofitAPI.getAnimal()
             if (response.isSuccessful) {

@@ -11,7 +11,7 @@ import com.said.myfavoriteanimals.R
 fun ImageView.downloadFromUrl(url: String?) {
     val options = RequestOptions()
         .placeholder(placeholderProgressBar(context))
-        .error(R.drawable.ic_launcher_foreground)
+        .error(R.drawable.ic_launcher_background)
         .centerCrop()
 
     Glide
