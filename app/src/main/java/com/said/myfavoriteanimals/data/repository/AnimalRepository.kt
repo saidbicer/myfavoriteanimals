@@ -11,7 +11,8 @@ import javax.inject.Inject
 
 class AnimalRepository @Inject constructor(
     private val animalDao: AnimalDao,
-    private val retrofitAPI: RetrofitAPI
+    private val retrofitAPI: RetrofitAPI,
+    private val connectionChecker: ConnectionChecker
 ) : AnimalRepositoryInterface {
 
     override suspend fun insertAnimalToSQLite(animal: Animal) {
@@ -27,7 +28,7 @@ class AnimalRepository @Inject constructor(
     }
 
     override suspend fun getImageFromAPI(): Resource<AnimalModel> {
-        if (!ConnectionChecker().check()) {
+        if (!connectionChecker.check()) {
             return Resource.error("No connection", null)
         }
 
