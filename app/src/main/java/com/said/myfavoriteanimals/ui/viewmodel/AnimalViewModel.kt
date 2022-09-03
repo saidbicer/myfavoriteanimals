@@ -27,19 +27,20 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
 
         viewModelScope.launch {
             var resource = repository.getImageFromAPI()
-            resource.data?.let { data ->
-                if (!data.status.equals("success")) {
-                    resource = Resource.error("Status : ${data.status}", null)
+
+            if (resource.status == Status.SUCCESS) {
+                resource.data?.let { data ->
+                    if (data.status.equals("success")) {
+                        data.imgUrl?.let { imgUrl ->
+                            _isSavedInSQLite.value = getAnimalWithUrlFromSQLite(imgUrl) != null
+                        }
+                    } else {
+                        resource = Resource.error("Status : ${data.status}", null)
+                    }
                 }
             }
 
             _image.value = resource
-
-            if (resource.status == Status.SUCCESS) {
-                resource.data?.imgUrl?.let { imgUrl ->
-                    _isSavedInSQLite.value = getAnimalWithUrlFromSQLite(imgUrl) != null
-                }
-            }
         }
     }
 
@@ -58,4 +59,5 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
             }
         }
     }
+
 }
