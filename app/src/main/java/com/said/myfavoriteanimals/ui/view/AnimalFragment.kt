@@ -21,7 +21,7 @@ import javax.inject.Inject
 class AnimalFragment @Inject constructor(private val preferencesUtils: PreferencesUtils) :
     Fragment(R.layout.fragment_animal) {
 
-    private var fragmentBinding: FragmentAnimalBinding? = null
+    private lateinit var fragmentBinding: FragmentAnimalBinding
     private val viewModel: AnimalViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,20 +38,18 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
     private fun initialSetups(view: View) {
         fragmentBinding = FragmentAnimalBinding.bind(view)
 
-        fragmentBinding?.let { binding ->
-            binding.apply {
-                btnGetRandomImage.setOnClickListener {
-                    viewModel.getDataFromAPI()
-                }
+        fragmentBinding.apply {
+            btnGetRandomImage.setOnClickListener {
+                viewModel.getDataFromAPI()
+            }
 
-                btnSaveImage.setOnClickListener {
-                    viewModel.saveDataToSqlite()
-                }
+            btnSaveImage.setOnClickListener {
+                viewModel.saveDataToSqlite()
+            }
 
-                btnListImages.setOnClickListener {
-                    val action = AnimalFragmentDirections.actionAnimalFragmentToAnimalListFragment()
-                    findNavController().navigate(action)
-                }
+            btnListImages.setOnClickListener {
+                val action = AnimalFragmentDirections.actionAnimalFragmentToAnimalListFragment()
+                findNavController().navigate(action)
             }
         }
     }
@@ -60,46 +58,44 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
         viewModel.image.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
-                    fragmentBinding?.let { bidding ->
-                        bidding.ivAnimal.visibility = View.VISIBLE
-                        bidding.progressBar.visibility = View.GONE
-                        bidding.btnGetRandomImage.isEnabled = true
-                        bidding.btnSaveImage.isEnabled = true
+                    fragmentBinding.apply {
+                        ivAnimal.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                        btnGetRandomImage.isEnabled = true
+                        btnSaveImage.isEnabled = true
+                    }
 
-                        resource.data?.imgUrl?.let { imgUrl ->
-                            bidding.animal = Animal(null, imgUrl)
-                            preferencesUtils.setLastTakenImgUrl(imgUrl)
-                        }
+                    resource.data?.imgUrl?.let { imgUrl ->
+                        fragmentBinding.animal = Animal(null, imgUrl)
+                        preferencesUtils.setLastTakenImgUrl(imgUrl)
                     }
                 }
 
                 Status.ERROR -> {
-                    fragmentBinding?.let { bidding ->
-                        bidding.ivAnimal.visibility = View.VISIBLE
-                        bidding.ivAnimal.setImageResource(R.drawable.ic_launcher_background)
-                        bidding.btnGetRandomImage.isEnabled = true
-                        bidding.progressBar.visibility = View.GONE
-                        preferencesUtils.clearLastImgUrl()
+                    fragmentBinding.apply {
+                        ivAnimal.visibility = View.VISIBLE
+                        ivAnimal.setImageResource(R.drawable.ic_launcher_background)
+                        btnGetRandomImage.isEnabled = true
+                        progressBar.visibility = View.GONE
                     }
+                    preferencesUtils.clearLastImgUrl()
                     Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
                         .show()
                 }
 
                 Status.LOADING -> {
-                    fragmentBinding?.let { bidding ->
-                        bidding.ivAnimal.visibility = View.INVISIBLE
-                        bidding.btnGetRandomImage.isEnabled = false
-                        bidding.btnSaveImage.isEnabled = false
-                        bidding.progressBar.visibility = View.VISIBLE
+                    fragmentBinding.apply {
+                        ivAnimal.visibility = View.INVISIBLE
+                        btnGetRandomImage.isEnabled = false
+                        btnSaveImage.isEnabled = false
+                        progressBar.visibility = View.VISIBLE
                     }
                 }
             }
         }
 
         viewModel.isSaved.observe(viewLifecycleOwner) { isSaved ->
-            fragmentBinding?.let { root ->
-                root.btnSaveImage.isEnabled = !isSaved
-            }
+            fragmentBinding.btnSaveImage.isEnabled = !isSaved
         }
     }
 }

@@ -15,7 +15,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FavoriteAnimalsFragment @Inject constructor(private val animalListAdapter: FavoriteAnimalsAdapter) : Fragment(R.layout.fragment_favorite_animals) {
 
-    private var fragmentBinding: FragmentFavoriteAnimalsBinding? = null
+    private lateinit var fragmentBinding: FragmentFavoriteAnimalsBinding
     private val viewModel: FavoriteAnimalsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,24 +29,24 @@ class FavoriteAnimalsFragment @Inject constructor(private val animalListAdapter:
     private fun initialSetups(view: View) {
         fragmentBinding = FragmentFavoriteAnimalsBinding.bind(view)
 
-        fragmentBinding?.let {
-            it.recyclerView.adapter = animalListAdapter
-            it.recyclerView.layoutManager = LinearLayoutManager(context)
+        fragmentBinding.apply {
+            recyclerView.adapter = animalListAdapter
+            recyclerView.layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun subscribeObservers() {
         viewModel.animalsLiveData.observe(viewLifecycleOwner) { list ->
             if (list.isNotEmpty()) {
-                fragmentBinding?.let {
-                    it.recyclerView.visibility = View.VISIBLE
-                    it.tvEmpty.visibility = View.GONE
+                fragmentBinding.apply {
+                    recyclerView.visibility = View.VISIBLE
+                    tvEmpty.visibility = View.GONE
                 }
-                animalListAdapter?.updateAnimalList(list)
+                animalListAdapter.updateAnimalList(list)
             } else {
-                fragmentBinding?.let {
-                    it.recyclerView.visibility = View.GONE
-                    it.tvEmpty.visibility = View.VISIBLE
+                fragmentBinding.apply {
+                    recyclerView.visibility = View.GONE
+                    tvEmpty.visibility = View.VISIBLE
                 }
             }
         }
