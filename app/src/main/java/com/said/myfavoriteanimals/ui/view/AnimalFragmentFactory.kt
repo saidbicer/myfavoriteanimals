@@ -16,6 +16,7 @@ class AnimalFragmentFactory @Inject constructor(
         return when (className) {
             FavoriteAnimalsFragment::class.java.name -> FavoriteAnimalsFragment(favoriteAnimalsAdapter)
             AnimalFragment::class.java.name -> AnimalFragment(preferencesUtils)
+            ShowAnimalFragment::class.java.name -> ShowAnimalFragment()
             else -> super.instantiate(classLoader, className)
         }
     }

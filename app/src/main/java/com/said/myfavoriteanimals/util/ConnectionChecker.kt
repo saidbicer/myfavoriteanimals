@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class ConnectionChecker @Inject constructor(){
+class ConnectionChecker @Inject constructor() {
 
     companion object {
         private const val HOST_NAME = "8.8.8.8"

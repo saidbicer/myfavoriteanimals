@@ -22,5 +22,23 @@
         <action
             android:id="@+id/action_animalListFragment_to_animalFragment"
             app:destination="@id/animalFragment" />
+        <action
+            android:id="@+id/action_animalListFragment_to_showAnimalFragment"
+            app:destination="@id/showAnimalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showAnimalFragment"
+        android:name="com.said.myfavoriteanimals.ui.view.ShowAnimalFragment"
+        android:label="fragment_show_animal"
+        tools:layout="@layout/fragment_show_animal" >
+        <action
+            android:id="@+id/action_showAnimalFragment_to_animalFragment"
+            app:destination="@id/animalFragment" />
+        <argument
+            android:name="imgUrl"
+            app:argType="string" />
+        <argument
+            android:name="animal"
+            app:argType="com.said.myfavoriteanimals.data.db.entity.Animal" />
     </fragment>
 </navigation>

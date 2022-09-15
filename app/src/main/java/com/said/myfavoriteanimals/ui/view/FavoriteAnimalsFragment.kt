@@ -33,6 +33,7 @@ class FavoriteAnimalsFragment @Inject constructor(private val animalListAdapter:
             recyclerView.adapter = animalListAdapter
             recyclerView.layoutManager = LinearLayoutManager(context)
         }
+
     }
 
     private fun subscribeObservers() {

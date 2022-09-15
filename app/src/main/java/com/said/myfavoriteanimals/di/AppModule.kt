@@ -29,7 +29,11 @@ object AppModule {
     @Provides
     fun injectRoomDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
         context, MyDatabase::class.java, "AnimalDB"
-    ).build()
+    )
+        .addMigrations(MyDatabase.MIGRATION_1_2)
+        .addMigrations(MyDatabase.MIGRATION_2_3)
+        .addMigrations(MyDatabase.MIGRATION_3_4)
+        .build()
 
     @Singleton
     @Provides
@@ -47,8 +51,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectNormalRepo(dao: AnimalDao, api: RetrofitAPI, connectionChecker: ConnectionChecker) =
-        AnimalRepository(dao, api, connectionChecker) as AnimalRepositoryInterface
+    fun injectNormalRepo(dao: AnimalDao, api: RetrofitAPI, connectionChecker: ConnectionChecker, @ApplicationContext context: Context) =
+        AnimalRepository(dao, api, connectionChecker, context) as AnimalRepositoryInterface
 
     @Singleton
     @Provides

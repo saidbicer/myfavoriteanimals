@@ -7,4 +7,6 @@
     <string name="no_data">No data!</string>
     <string name="animalsearch">Animal Search</string>
     <string name="myfavoriteanimals">My Favorite Animals</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

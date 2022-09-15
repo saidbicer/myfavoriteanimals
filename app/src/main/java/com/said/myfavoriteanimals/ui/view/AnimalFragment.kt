@@ -1,9 +1,11 @@
 package com.said.myfavoriteanimals.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,9 @@ import com.said.myfavoriteanimals.util.PreferencesUtils
 import com.said.myfavoriteanimals.util.Status
 import com.said.myfavoriteanimals.util.downloadFromUrl
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,7 +71,7 @@ class AnimalFragment @Inject constructor(private val preferencesUtils: Preferenc
                     }
 
                     resource.data?.imgUrl?.let { imgUrl ->
-                        fragmentBinding.animal = Animal(null, imgUrl)
+                        fragmentBinding.animal = Animal(null, imgUrl, "", 0)
                         preferencesUtils.setLastTakenImgUrl(imgUrl)
                     }
                 }

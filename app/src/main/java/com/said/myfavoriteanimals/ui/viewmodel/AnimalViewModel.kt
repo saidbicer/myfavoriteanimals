@@ -22,6 +22,7 @@ class AnimalViewModel @Inject constructor(private val repository: AnimalReposito
     val isSaved: LiveData<Boolean>
         get() = _isSavedInSQLite
 
+
     fun getDataFromAPI() {
         _image.value = Resource.loading(null)
 
